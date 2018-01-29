@@ -1,9 +1,4 @@
 
-# coding: utf-8
-
-# In[1]:
-
-
 import numpy as np # linear algebra
 import pandas as pd # data processing, csv file I/O
 import math
@@ -25,27 +20,24 @@ import seaborn as sns
 get_ipython().magic('matplotlib inline')
 
 
-# In[2]:
 
 
 sns.set(color_codes = True, palette='muted')
 
 
-# In[3]:
+
 
 
 Input_file = 'G:/fashion-mnist_train.csv'
 df_train = pd.read_csv(Input_file)
 
 
-# In[4]:
 
 
 print('Training data:', df_train.info())
 #print(df_train)
 
 
-# In[5]:
 
 
 target = df_train['label']
@@ -54,7 +46,6 @@ y.shape
 print(target)
 
 
-# In[7]:
 
 
 features = df_train.iloc[:,1:]
@@ -62,38 +53,29 @@ print(features)
 features.shape
 
 
-# In[8]:
+
 
 
 X_train, X_test, y_train,y_test = train_test_split(features,y, test_size=0.2, random_state=1)#splitting t data in 2 sets
 
 
-# In[9]:
 
 
 X_test, X_val, y_test, y_val = train_test_split(X_train,y_train, test_size=0.2, random_state=1)#splitting teh data in 2 sets
 
 
-# In[10]:
 
 
 X_train.shape
 
-
-# In[11]:
 
 
 y_train.shape
 print(y_train)
 
 
-# In[12]:
-
-
 X_val.shape
 
-
-# In[13]:
 
 
 n_features = len(X_train.values[0])
@@ -109,7 +91,6 @@ print('Input images have {0} x {0} px shape'.format(n_pixels))
 print('So far, so good')
 
 
-# In[16]:
 
 
 X_train = X_train.values.reshape(X_train.shape[0], n_pixels, n_pixels, 1)
@@ -123,13 +104,11 @@ print('y_valid.shape:', y_val.shape)
 print('X_test.shape:', X_test.shape)
 
 
-# In[17]:
-
 
 sns.distplot(df_train['label'].values, kde=False, vertical=False, bins=10)
 
 
-# In[24]:
+
 
 
 def create_my_model(shape=(28, 28, 1)):
@@ -167,7 +146,6 @@ model = create_my_model(shape=(n_pixels, n_pixels, 1))
 model.summary()
 
 
-# In[25]:
 
 
 X_train, y_train = shuffle(X_train, y_train)
@@ -189,7 +167,6 @@ imgen_train.fit(X_train)
 imgen_valid.fit(X_valid)
 
 
-# In[27]:
 
 
 EPOCHS = 4 # actually needs to run for much longer to achieve the >99.4% validation accuracy I got
@@ -204,20 +181,17 @@ history = model.fit_generator(
 )
 
 
-# In[21]:
 
 
 model.save('model.h5')
 
 
-# In[22]:
 
 
 y_test = model.predict_classes(X_test)
 print(y_test.shape)
 
 
-# In[23]:
 
 
 result = list(enumerate(y_test))
